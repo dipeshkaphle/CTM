@@ -24,6 +24,10 @@ int main() {
   static_assert(pow_ans == 32, "");
   static_assert(CTM::power_v<0, 10> == 0, "");
   static_assert(CTM::power_v<2, 0> == 1, "");
-  constexpr auto constexpr_pow = CTM::pow(2u, 10u);
+  constexpr size_t constexpr_pow = CTM::pow(2u, 10u);
   static_assert(constexpr_pow == 1024, "");
+  constexpr long long constexpr_pow_sgnd = CTM::pow(-10, 3u);
+  static_assert(constexpr_pow_sgnd == -1000, "");
+  constexpr double constexpr_pow_dbl = CTM::pow(-10.0, 3u);
+  static_assert(constexpr_pow_dbl == -1000.00, "");
 }
