@@ -89,4 +89,7 @@ template <Integral T> constexpr T floor(const T x) noexcept { return x; }
 // includes all the pow functions
 #include "pow.h"
 
+// exp
+#include "exp.h"
+
 } // namespace CTM

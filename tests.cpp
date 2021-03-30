@@ -1,4 +1,5 @@
 #include "CTM.h"
+#include <iomanip>
 #include <iostream>
 
 int main() {
@@ -30,4 +31,13 @@ int main() {
   static_assert(constexpr_pow_sgnd == -1000, "");
   constexpr double constexpr_pow_dbl = CTM::pow(-10.0, 3u);
   static_assert(constexpr_pow_dbl == -1000.00, "");
+
+  constexpr double exp_1 = CTM::exp_taylor(1);
+  assert(exp_1 == exp(1));
+  constexpr double exp_100 = CTM::exp_taylor(100);
+  std::cout << std::setprecision(40) << exp_100 << " " << exp(100) << '\n';
+  // assert(exp_100 == exp(100));
+  constexpr double exp_700 = CTM::exp_taylor(700);
+  // assert(exp_700 == exp(700));
+  std::cout << std::setprecision(40) << exp_700 << " " << exp(700) << '\n';
 }

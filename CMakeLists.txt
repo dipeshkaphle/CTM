@@ -4,7 +4,7 @@ project(CTM)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-set(CMAKE_CXX_FLAGS "-Wall -Wpedantic -Wextra -fsanitize=address")
+set(CMAKE_CXX_FLAGS "-Wall -lm -Wpedantic -Wextra -fsanitize=address")
 
 add_executable(main main.cpp)
 add_executable(tests tests.cpp)
