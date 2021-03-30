@@ -84,4 +84,51 @@ template <FloatingPoint T> constexpr long long floor(const T x) {
 // floor for integral types
 template <Integral T> constexpr T floor(const T x) noexcept { return x; }
 
+// max and min, no need because std::max and std::min are already constexpr
+
+// power with templates
+template <size_t x, size_t y> struct power {
+  static constexpr size_t value =
+      (power<x, y / 2>::value * power<x, y / 2>::value) *
+      (CTM::is_odd(y) ? x : 1);
+};
+
+template <size_t y> struct power<0, y> { static constexpr size_t value = 0; };
+
+template <size_t x> struct power<x, 0> { static constexpr size_t value = 1; };
+
+template <size_t x, size_t y>
+static constexpr size_t power_v = power<x, y>::value;
+
+//
+// pow for integral types
+// x ^ y, x is integral and y is unsigned integral
+template <Integral Param, UnsignedIntegral Base>
+constexpr auto pow(const Param &x, const Base &y) {
+  if constexpr (std::is_signed_v<Param>) {
+    if (x == 0)
+      return (long long)0;
+    if (y == 0)
+      return (long long)1;
+    long long acc = CTM::pow(x, y / 2);
+    if (CTM::is_odd(y))
+      return acc * acc * x;
+    else
+      return acc * acc;
+  } else {
+    if (x == 0)
+      return size_t(0);
+    if (y == 0)
+      return size_t(1);
+    size_t acc = CTM::pow(x, y / 2);
+    if (CTM::is_odd(y))
+      return acc * acc * x;
+    else
+      return acc * acc;
+  }
+}
+//
+// Other variants of pow is to be defined
+//
+
 } // namespace CTM
